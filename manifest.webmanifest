@@ -1,0 +1,40 @@
+{
+   "theme_color": "#2c2f33",
+    "background_color": "#2c2f33",
+    "display": "minimal-ui",
+    "scope": "https://nz26.alwaysdata.net/js/pw8/",
+    "start_url": "https://nz26.alwaysdata.net/js/pw8/index.html",
+    "name": "My Progressive Web Application Chat",
+    "short_name": "MyPwaChat",
+    "description": "A Simple progressive App Chat with a Virtual Friend",
+    "orientation":"portrait",
+    "categories": ["education"],
+    "icons": [
+        {
+            "src": "https://nz26.alwaysdata.net/js/pw8/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "https://nz26.alwaysdata.net/js/pw8/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "https://nz26.alwaysdata.net/js/pw8/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "https://nz26.alwaysdata.net/js/pw8/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "https://nz26.alwaysdata.net/js/pw8/maskable_icon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

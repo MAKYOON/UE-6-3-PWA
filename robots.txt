@@ -1,0 +1,12 @@
+Sitemap: https://nz26.alwaysdata.net/js/pw8/sitemap.xml
+
+
+
+User-agent: *
+
+Disallow: /private/
+Disallow: /private/index_files
+Disallow: /private/home
+Disallow: /private/js
+Disallow: /private/pic
+
