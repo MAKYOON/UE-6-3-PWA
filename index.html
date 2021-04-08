@@ -11,18 +11,26 @@
 
 <body>
     <main>
+      <header id="chatTitle">
+		      <br />
+		        <div style="text-align: center;"> Welcome to LPDWCA chat !</div>
+	    </header>
+      <article id="ChatBox">
         <div class="container bg-chat vh-85 p-4 mt-4 rounded-top d-flex flex-column" id="mychat">
-  
-       </div>
 
-        </div>
+       </div>
+      </article>
+      <article id="chatSeparator" >
         <div id="separator" class="container bg-chat"></div>
+      </article>
+      <footer id="chatInput">
         <div id="input-send-msg" class="container bg-chat vh-5 rounded-bottom">
             <div class="d-flex">
                 <input type="text" class="form-control mr-1" id="mysentence" placeholder="Envoyer un message">
                 <button type="submit" class="btn btn-primary" onclick="affiche()" >Envoyer</button>
             </div>
         </div>
+      </footer>
     </main>
 
 <script type="text/javascript" >
@@ -30,7 +38,8 @@ var compteur =1;
 var bublecompteur =1;
 var maphrase = "";
 var bublearray = [];
-var items = ["BlaBlaBla, tu comprends ?", "BlaBlaBla, t'étais ou?", "BlaBlaBla, tu as fait quoi ?", "BlaBlaBla, tu sais ou pas ?"];
+var items = ["BlaBlaBla, tu comprends ?", "BlaBlaBla, t'es ou?", "BlaBlaBla, tu fais quoi ?", "BlaBlaBla, tu sais ou pas ?", "BlaBlaBla, t'en dis quoi ?" , "BlaBlaBla, tu viens ou pas ?" , "BlaBlaBla, t'es au courant ?" , "BlaBlaBla, tu l'as vu ?"];
+var elmnt = document.getElementById("separator")
 
 document.getElementById("mysentence").addEventListener("keydown", ({key}) => {
     if (key === "Enter") affiche();
@@ -59,6 +68,7 @@ function virtualtalk(){
 
   mymessage.innerHTML="" + virtualtext;
   document.getElementById("mysentence").value ="";
+
   document.getElementById("mychat").appendChild(mybulle);
   var txt = "mybuble"+compteur;
   var info = document.getElementById(txt);
@@ -74,8 +84,9 @@ function virtualtalk(){
   wchat = rectchat.width;
   hchat = rectchat.height;
   //alert ("Left: " + x + ", Top: " + y + ", Width: " + w + ", Height: " + h + "\n" + "Left: " + xchat + ", Top: " + ychat + ", Width: " + wchat + ", Height: " + hchat);
-  if ((y+h) > (ychat+hchat)){
+  if ((y+h) > (ychat+hchat)-(y+h)){
     //alert ("Ca deborde");
+
     var list = document.getElementById("mychat");
     list.removeChild(mychat.childNodes[0]);
     bublecompteur = bublecompteur - 1 ;
@@ -88,6 +99,7 @@ function virtualtalk(){
   bublearray[(bublecompteur-1)]= document.getElementById("mybuble"+compteur);
   compteur = compteur +1;
   bublecompteur = bublecompteur + 1 ;
+
 }
 
 
@@ -113,6 +125,7 @@ function affiche(){
   mymessage.classList.add('msg-text', 'text-light');
   mymessage.innerHTML=document.getElementById("mysentence").value;
   document.getElementById("mysentence").value ="";
+
   document.getElementById("mychat").appendChild(mybulle);
   var txt = "mybuble"+compteur;
   var info = document.getElementById(txt);
@@ -128,12 +141,14 @@ function affiche(){
   wchat = rectchat.width;
   hchat = rectchat.height;
   //alert ("Left: " + x + ", Top: " + y + ", Width: " + w + ", Height: " + h + "\n" + "Left: " + xchat + ", Top: " + ychat + ", Width: " + wchat + ", Height: " + hchat);
-  if ((y+h) > (ychat+hchat)){
+  if ((y+h) > (ychat+hchat)-(y+h)){
     //alert ("Ca deborde");
+    document.getElementById("mysentence").scrollIntoView(false);
     var list = document.getElementById("mychat");
     list.removeChild(mychat.childNodes[0]);
     bublecompteur = bublecompteur - 1 ;
     bublearray.splice(0,1);
+
   }
   document.getElementById("mybuble"+compteur).appendChild(monserver);
   document.getElementById("myserver"+compteur).appendChild(mynom);
