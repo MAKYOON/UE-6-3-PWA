@@ -17,32 +17,39 @@
 </head>
 
 <body>
+    <header id="chatTitle">
+        <div style="text-align: center;"> Welcome to LPDWCA chat !</div>
+        <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall@latest/dist/pwa-install.min.js">Install</script>
+    </header>
+
     <main>
-      <header id="chatTitle">
-		      <br />
-		        <div style="text-align: center;"> Welcome to LPDWCA chat !</div>
-            <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall@latest/dist/pwa-install.min.js">Install</script>
-	    </header>
-      <article id="ChatBox">
-        <div class="container bg-chat vh-85 p-4 mt-4 rounded-top d-flex flex-column" id="mychat">
+      <article id="chatBox">
+        <div class="container bg-chat vh-85 p-4 mt-4 rounded-top d-flex flex-column" id="myChat">
 
        </div>
       </article>
       <article id="chatSeparator" >
         <div id="separator" class="container bg-chat"></div>
       </article>
-      <footer id="chatInput">
+      <article id="chatInput">
         <div id="input-send-msg" class="container bg-chat vh-5 rounded-bottom">
             <div class="d-flex">
-                <input type="text" class="form-control mr-1" id="mysentence" placeholder="Envoyer un message">
-                <button type="submit" class="btn btn-primary" onclick="affiche()" >Envoyer</button>
+                <input type="text" class="form-control mr-1" id="mySentence" placeholder="Envoyer un message">
+                <button type="submit" class="btn btn-primary" onclick="sendMsg()">Envoyer</button>
             </div>
         </div>
-      </footer>
+      </article>
     </main>
-<script type="text/javascript" src="index.js"></script>
-
-
+    <footer></footer>
+    <script type="text/javascript" src="index.js"></script>
+    <script> 
+      //Rajoute la possibilité d'envoyer le message en appuyant sur Entrée
+      document.getElementById("mySentence").addEventListener("keydown", ({key}) => {
+        if (key === "Enter") sendMsg();
+      });
+      displayMsgStoredInLocalStorage();
+      installServiceWorker();
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </body>
 </html>

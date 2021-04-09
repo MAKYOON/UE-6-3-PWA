@@ -1,7 +1,6 @@
 .bg-chat {
   background-color: #2c2f33;
   max-height: 85vh;
-
 }
 
 .vh-85 {
@@ -16,8 +15,6 @@
   margin-right: 1rem;
 }
 
-
-
 .msg-container {
   max-width: 450px;
   max-height: 90px;
@@ -25,8 +22,10 @@
   border-radius: 15px;
   background-color: #ffffff;
   overflow-anchor: none;
+  min-width: 200px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
-
 
 .msg-header {
   display: flex;
@@ -39,7 +38,7 @@
   max-width: 450px;
   max-height: 50px;
   word-wrap: break-word;
-  position:top;
+  position: top;
 }
 
 #separator {
@@ -47,59 +46,68 @@
   padding-bottom: 1rem;
 }
 
-@media screen and (max-width: 1000px){
-
-main {
-	box-sizing: border-box;
-	display: grid;
-	width: 100vw ;
-	height: 100vh;
-	margin-right:auto;
-	margin-left: auto;
-	grid-template-rows: minmax(7vh, 10vh) auto  minmax(1vh, 2vh) minmax(10vh, 15vh);
-	grid-gap: 3px;
-}
-#header {
-	grid-row: 1 ;
-}
-#chatBox {
-	grid-row: 2 ;
-}
-#chatSeparator {
-	grid-row: 3;
-}
-#chatInput {
-	grid-row: 4 ;
-}
+#myChat {
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
-@media screen and (min-width:1000px){
+@media screen and (max-width: 1000px) {
+  main {
+    box-sizing: border-box;
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    margin-right: auto;
+    margin-left: auto;
+    grid-template-rows: minmax(7vh, 10vh) auto minmax(1vh, 2vh) minmax(
+        10vh,
+        15vh
+      );
+    grid-gap: 3px;
+  }
+  #header {
+    grid-row: 1;
+  }
+  #chatBox {
+    grid-row: 2;
+  }
+  #chatSeparator {
+    grid-row: 3;
+  }
+  #chatInput {
+    grid-row: 4;
+  }
+}
 
-main {
-	box-sizing: border-box;
-	display: grid;
-	width: 100vw ;
-	height: 100vh;
-	margin-right:auto;
-	margin-left: auto;
-	grid-template-columns: 100vw;
-	grid-template-rows: minmax(7vh, 10vh) auto  minmax(1vh, 2vh) minmax(10vh, 15vh);
-	grid-gap: 3px;
-}
-#header {
-	grid-column : 1/2;
-	grid-row: 1 ;
-}
-#chatBox {
-	grid-column : 1/2;
-	grid-row: 2 ;
-}
-#chatSeparator {
-	grid-column : 1/2;
-	grid-row: 3;
-}
-#chatInput {
-	grid-column : 1/2;
-	grid-row: 4 ;
-}
+@media screen and (min-width: 1000px) {
+  main {
+    box-sizing: border-box;
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    margin-right: auto;
+    margin-left: auto;
+    grid-template-columns: 100vw;
+    grid-template-rows: minmax(7vh, 10vh) auto minmax(1vh, 2vh) minmax(
+        10vh,
+        15vh
+      );
+    grid-gap: 3px;
+  }
+  #header {
+    grid-column: 1/2;
+    grid-row: 1;
+  }
+  #chatBox {
+    grid-column: 1/2;
+    grid-row: 2;
+  }
+  #chatSeparator {
+    grid-column: 1/2;
+    grid-row: 3;
+  }
+  #chatInput {
+    grid-column: 1/2;
+    grid-row: 4;
+  }
 }
