@@ -14,6 +14,31 @@ const clearInput = () => {
   document.getElementById("mySentence").value = "";
 }
 
+// Check si les notifications sont autorisées
+const notify = () => {
+  if ( window .Notification && window .Notification !== 'denied' ) {
+    Notification.requestPermission(perm => {
+      if (perm === 'granted' ) {
+        const notif= new Notification ( 'Notification OK' );
+      } else {
+        console .log( 'autorisation de recevoir des notifications refusée' );
+      }
+    })
+  }
+}
+
+
+// notifie l'arrivée de nouveaux messages de l'ami virtuel
+const getNotified = () => {
+  let params = {
+    body:"Vous avez un message"
+  }
+  const greeting = new Notification('MyPwaChat', params);
+}
+
+
+
+
 //Fonction qui génère la box avec le message, et selon la variable isVirtualMsg (boolean) qui est passée en paramètre (true or false), ça gère l'affichage à droite/gauche
 const generateMsgBox = (isVirtualMsg, msgValue) => {
   const virtualMsgs = ["BlaBlaBla, tu comprends ?", "BlaBlaBla, t'es ou?", "BlaBlaBla, tu fais quoi ?", "BlaBlaBla, tu sais ou pas ?", "BlaBlaBla, t'en dis quoi ?" , "BlaBlaBla, tu viens ou pas ?" , "BlaBlaBla, t'es au courant ?" , "BlaBlaBla, tu l'as vu ?"];
@@ -40,14 +65,16 @@ const generateMsgBox = (isVirtualMsg, msgValue) => {
   header.append(name, time);
   container.append(header, msg);
 
+
   chat.append(container);
   clearInput();
   //Retourne un objet avec le nom de l'envoyeur et son message
+
   return {
     name: name.innerHTML,
     msg: msg.innerHTML
   }
-  
+
 }
 
 const sendMsg = () => {
@@ -58,7 +85,7 @@ const sendMsg = () => {
     const userMsg = generateMsgBox(false);
     //bulle gauche (virtuelle)
     const virtualText = generateMsgBox(true);
-    
+
     //tableau de messages, initialisé vide
     let messages = [];
     //on y stocke les deux messages actuels
@@ -69,6 +96,11 @@ const sendMsg = () => {
     if (localStorage.getItem('messages')) currentLocalStorage = JSON.parse(localStorage.getItem('messages'));
     if (currentLocalStorage) messages = currentLocalStorage.concat(messages);
     localStorage.setItem('messages', JSON.stringify(messages));
+
+    // tempo random pour les messages de Kevin
+    //isVirtualMsg ? true: setTimeout(() => {getNotified()}, Math.floor(Math.random() * (30 ) ) * 1000);
+    getNotified();
+    
   } else {
     alert('Veuillez rentrer un message');
   }
@@ -98,5 +130,3 @@ const installServiceWorker = () => {
     });
   }
 }
-
-

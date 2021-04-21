@@ -42,10 +42,12 @@
     </main>
     <footer></footer>
     <script type="text/javascript" src="index.js"></script>
-    <script> 
+    <script>
+      notify();
       //Rajoute la possibilité d'envoyer le message en appuyant sur Entrée
       document.getElementById("mySentence").addEventListener("keydown", ({key}) => {
         if (key === "Enter") sendMsg();
+
       });
       displayMsgStoredInLocalStorage();
       installServiceWorker();

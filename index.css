@@ -1,6 +1,7 @@
 .bg-chat {
   background-color: #2c2f33;
   max-height: 85vh;
+
 }
 
 .vh-85 {
@@ -21,10 +22,10 @@
   padding: 15px;
   border-radius: 15px;
   background-color: #ffffff;
-  overflow-anchor: none;
   min-width: 200px;
   margin-top: 1rem;
   margin-bottom: 1rem;
+
 }
 
 .msg-header {
@@ -44,11 +45,13 @@
 #separator {
   border-top: 1px solid black;
   padding-bottom: 1rem;
+
 }
 
 #myChat {
   overflow-x: hidden;
   overflow-y: scroll;
+  
 }
 
 @media screen and (max-width: 1000px) {
