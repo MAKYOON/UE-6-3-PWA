@@ -16,12 +16,15 @@ const clearInput = () => {
 
 // Check si les notifications sont autorisées
 const notify = () => {
-  if ( window .Notification && window .Notification !== 'denied' ) {
+  if ( window.Notification && window.Notification !== 'denied' ) {
     Notification.requestPermission(perm => {
       if (perm === 'granted' ) {
-        const notif= new Notification ( 'Notification OK' );
+        const notif = new Notification ('Notification OK');
+        console.log("Notifications acceptées");
+      } else if (perm === 'default') {
+        console.log('En attente de confirmation');
       } else {
-        console .log( 'autorisation de recevoir des notifications refusée' );
+        console.log("Notifications refusées")
       }
     })
   }
@@ -84,7 +87,7 @@ const sendMsg = () => {
     //bulle droite (input de l'utilisateur)
     const userMsg = generateMsgBox(false);
     //bulle gauche (virtuelle)
-    const virtualText = generateMsgBox(true);
+    const virtualText = setTimeout(() => generateMsgBox(true), Math.floor(Math.random() * 3) * 1000);
 
     //tableau de messages, initialisé vide
     let messages = [];
@@ -98,7 +101,6 @@ const sendMsg = () => {
     localStorage.setItem('messages', JSON.stringify(messages));
 
     // tempo random pour les messages de Kevin
-    //isVirtualMsg ? true: setTimeout(() => {getNotified()}, Math.floor(Math.random() * (30 ) ) * 1000);
     getNotified();
     
   } else {
