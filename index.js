@@ -44,7 +44,7 @@ const getNotified = () => {
 
 //Fonction qui génère la box avec le message, et selon la variable isVirtualMsg (boolean) qui est passée en paramètre (true or false), ça gère l'affichage à droite/gauche
 const generateMsgBox = (isVirtualMsg, msgValue) => {
-  const virtualMsgs = ["BlaBlaBla, tu comprends ?", "BlaBlaBla, t'es ou?", "BlaBlaBla, tu fais quoi ?", "BlaBlaBla, tu sais ou pas ?", "BlaBlaBla, t'en dis quoi ?" , "BlaBlaBla, tu viens ou pas ?" , "BlaBlaBla, t'es au courant ?" , "BlaBlaBla, tu l'as vu ?"];
+  const virtualMsgs = ["BlaBlaBla, tu comprends ?", "BlaBlaBla, t'es ou?", "BlaBlaBla, tu fais quoi ?", "BlaBlaBla, tu sais ou pas ?", "BlaBlaBla, t'en dis quoi ?" , "BlaBlaBla, tu viens ou pas ?" , "BlaBlaBla, t'es au courant ?" , "BlaBlaBla, tu l'as vu ?", "BlaBlaBla, serieux ?", "BlaBlaBla, tu vas faire quoi ?"];
   const chat =  document.getElementById("myChat");
   const now = new Date();
   const container =  document.createElement("div");
@@ -71,6 +71,8 @@ const generateMsgBox = (isVirtualMsg, msgValue) => {
 
   chat.append(container);
   clearInput();
+  isVirtualMsg ? getNotified() : console.log("Not Kevin") ;
+
   //Retourne un objet avec le nom de l'envoyeur et son message
 
   return {
@@ -87,7 +89,8 @@ const sendMsg = () => {
     //bulle droite (input de l'utilisateur)
     const userMsg = generateMsgBox(false);
     //bulle gauche (virtuelle)
-    const virtualText = setTimeout(() => generateMsgBox(true), Math.floor(Math.random() * 3) * 1000);
+    const virtualText = setTimeout(() => generateMsgBox(true), Math.floor(Math.random() * 10) * 1000);
+
 
     //tableau de messages, initialisé vide
     let messages = [];
@@ -100,9 +103,8 @@ const sendMsg = () => {
     if (currentLocalStorage) messages = currentLocalStorage.concat(messages);
     localStorage.setItem('messages', JSON.stringify(messages));
 
-    // tempo random pour les messages de Kevin
-    getNotified();
-    
+
+
   } else {
     alert('Veuillez rentrer un message');
   }
@@ -117,6 +119,7 @@ const displayMsgStoredInLocalStorage = () => {
       else generateMsgBox(true, item.msg);
     });
   }
+  
 }
 
 const installServiceWorker = () => {
