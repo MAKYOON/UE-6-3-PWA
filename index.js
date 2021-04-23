@@ -14,12 +14,16 @@ const clearInput = () => {
   document.getElementById("mySentence").value = "";
 }
 
+const scrollToBottom = () => {
+  const myChat = document.getElementById("myChat");
+  myChat.scrollTo(0,myChat.scrollHeight);  
+}
+
 // Check si les notifications sont autorisées
-const notify = () => {
+const promptNotification = () => {
   if ( window.Notification && window.Notification !== 'denied' ) {
     Notification.requestPermission(perm => {
       if (perm === 'granted' ) {
-        const notif = new Notification ('Notification OK');
         console.log("Notifications acceptées");
       } else if (perm === 'default') {
         console.log('En attente de confirmation');
@@ -33,10 +37,16 @@ const notify = () => {
 
 // notifie l'arrivée de nouveaux messages de l'ami virtuel
 const getNotified = () => {
-  let params = {
-    body:"Vous avez un message"
+  if (Notification.permission == 'granted') {
+    const messages = JSON.parse(localStorage.getItem('messages'));
+    const lastMessage = messages[messages.length - 1];
+    let params = {
+      body: `Vous avez un nouveau message de la part de ${lastMessage.name}\n\n
+${lastMessage.msg}`,
+      icon: "./icon-256x256.png"
+    }
+    new Notification('MyPwaChat', params);
   }
-  const greeting = new Notification('MyPwaChat', params);
 }
 
 
@@ -71,8 +81,6 @@ const generateMsgBox = (isVirtualMsg, msgValue) => {
 
   chat.append(container);
   clearInput();
-  isVirtualMsg ? getNotified() : console.log("Not Kevin") ;
-
   //Retourne un objet avec le nom de l'envoyeur et son message
 
   return {
@@ -82,27 +90,31 @@ const generateMsgBox = (isVirtualMsg, msgValue) => {
 
 }
 
-const sendMsg = () => {
+const sendMsg = async () => {
   const currentMessage = document.getElementById("mySentence").value;
 
   if (currentMessage !== '') {
     //bulle droite (input de l'utilisateur)
     const userMsg = generateMsgBox(false);
-    //bulle gauche (virtuelle)
-    const virtualText = setTimeout(() => generateMsgBox(true), Math.floor(Math.random() * 10) * 1000);
+    scrollToBottom();
+    const delay = Math.floor(Math.random() * 10) * 1000;
 
-
-    //tableau de messages, initialisé vide
-    let messages = [];
-    //on y stocke les deux messages actuels
-    messages.push(userMsg, virtualText);
-    //s'il n'y a rien dans le local storage, alors on envoie le tableau tel quel
-    //sinon on récupère ce qu'il y a déjà dedans, et on concatène le tableau actuel et on renvoie le tout dans le local storage
-    let currentLocalStorage;
-    if (localStorage.getItem('messages')) currentLocalStorage = JSON.parse(localStorage.getItem('messages'));
-    if (currentLocalStorage) messages = currentLocalStorage.concat(messages);
-    localStorage.setItem('messages', JSON.stringify(messages));
-
+    setTimeout(() =>  {
+      //bulle gauche (virtuelle)
+      const virtualText = generateMsgBox(true);
+          //tableau de messages, initialisé vide
+      let messages = [];
+      //on y stocke les deux messages actuels
+      messages.push(userMsg, virtualText);
+      //s'il n'y a rien dans le local storage, alors on envoie le tableau tel quel
+      //sinon on récupère ce qu'il y a déjà dedans, et on concatène le tableau actuel et on renvoie le tout dans le local storage
+      let currentLocalStorage;
+      if (localStorage.getItem('messages')) currentLocalStorage = JSON.parse(localStorage.getItem('messages'));
+      if (currentLocalStorage) messages = currentLocalStorage.concat(messages);
+      localStorage.setItem('messages', JSON.stringify(messages));
+      scrollToBottom();
+      getNotified();
+    }, delay);
 
 
   } else {
@@ -119,7 +131,8 @@ const displayMsgStoredInLocalStorage = () => {
       else generateMsgBox(true, item.msg);
     });
   }
-  
+  const myChat = document.getElementById("myChat");
+  myChat.scrollTo(0,myChat.scrollHeight);  
 }
 
 const installServiceWorker = () => {
